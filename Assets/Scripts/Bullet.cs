@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] float lifeTime = 1f;
 
     Rigidbody2D rb;
-    float life;
+    float life;//
 
     void Awake()
     {
