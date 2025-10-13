@@ -33,13 +33,15 @@ public class Bullet : MonoBehaviour
             ReturnToPool();
     }
 
-    private void OnCollisionEnter2D(Collision2D other) {
-        if (other.gameObject.TryGetComponent<Health>(out var hp))
-        {
-            hp.TakeDamage(damage);
-            ReturnToPool();
-        }    
+    void OnTriggerEnter2D(Collider2D other)
+{
+    if (other.TryGetComponent<Health>(out var hp))
+    {
+        hp.TakeDamage(damage);
+        ReturnToPool();
     }
+}
+
     
 
     void ReturnToPool()
