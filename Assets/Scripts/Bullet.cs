@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
 
     public void Launch(Vector2 direction, Vector3 startPosition)
     {
-        Debug.Log("Launch called!");// gucken ob diese Methode Launch oder igniert wurde denn Schuss bleibt auf der Stelle
+        //Debug.Log("Launch called!");// gucken ob diese Methode Launch oder igniert wurde denn Schuss bleibt auf der Stelle
         // oder Spawnt an einem Fixen punkt
         transform.position = startPosition; // Startposition auf FirePoint setzen
         life = lifeTime;

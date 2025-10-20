@@ -7,10 +7,15 @@ public class Health : MonoBehaviour
     public UnityEvent onDeath;// wenn man kein Herz mehr hat
     int current;// was er grad vorhanden hat an Herzen
 
+    public int CurrentHP => current;
+    public int MaxHP => maxHP;
+
+
     void Awake() => current = maxHP;//Start mit der Menge an herzen am anfang des Spieles
 
     public void TakeDamage(int amount) // nimmt der Player schaden wird hier bestimmt wie viel ernocht hat und wie viel schaden er nimmt
     {
+        Debug.Log($"{gameObject.name} took {amount} damage!");
         current -= amount;
         if (current <= 0)
         {
