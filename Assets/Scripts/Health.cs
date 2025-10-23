@@ -3,23 +3,29 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] int maxHP = 3;// Lebensanzeige (Wie viel Herzen hat man)
-    public UnityEvent onDeath;// wenn man kein Herz mehr hat
-    int current;// was er grad vorhanden hat an Herzen
+    [SerializeField] int maxHP = 3; // Lebensanzeige (Wie viel Herzen hat man)
+    public UnityEvent onDeath; // wenn man kein Herz mehr hat
+    int current; // was er grad vorhanden hat an Herzen
 
     public int CurrentHP => current;
     public int MaxHP => maxHP;
 
+    void Awake() => current = maxHP; // Start mit der Menge an Herzen am Anfang des Spieles
 
-    void Awake() => current = maxHP;//Start mit der Menge an herzen am anfang des Spieles
-
-    public void TakeDamage(int amount) // nimmt der Player schaden wird hier bestimmt wie viel ernocht hat und wie viel schaden er nimmt
+    public void TakeDamage(int amount)
     {
         Debug.Log($"{gameObject.name} took {amount} damage!");
         current -= amount;
+
         if (current <= 0)
         {
-            onDeath?.Invoke();//wenn man kein leben mehr hat is das Spiel fertig 
+            // Punkte vergeben, wenn es ein Gegner ist
+            if (CompareTag("Enemy"))
+            {
+                ScoreManager.Instance?.AddPoints(100);
+            }
+
+            onDeath?.Invoke();
             gameObject.SetActive(false);
         }
     }
