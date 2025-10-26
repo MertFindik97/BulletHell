@@ -14,7 +14,7 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        Debug.Log($"{gameObject.name} took {amount} damage!");
+        Debug.Log($"{gameObject.name} took {amount} damage!");// zeigt das ich ein schade bekommen habe
         current -= amount;
 
         if (current <= 0)
