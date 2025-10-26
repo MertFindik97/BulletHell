@@ -31,9 +31,11 @@ public class GameOverManager : MonoBehaviour
         SceneManager.LoadScene("Main"); //  nur Main neu laden!
     }
 
-    public void QuitToMenu()
+    public void LoadMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu"); //  nur hier MainMenu laden
+        SceneManager.LoadScene("MainMenu");
+        Debug.Log("Loading Menu...");
+
     }
 }
