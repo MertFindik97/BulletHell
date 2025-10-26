@@ -1,33 +1,54 @@
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.UI;
 
-public class Health : MonoBehaviour
+public class HealthBar : MonoBehaviour
 {
-    [SerializeField] int maxHP = 3; // Lebensanzeige (Wie viel Herzen hat man)
-    public UnityEvent onDeath; // wenn man kein Herz mehr hat
-    int current; // was er grad vorhanden hat an Herzen
+    [SerializeField] Image fillImage;
+    [SerializeField] Health health;
+    [SerializeField] CanvasGroup canvasGroup;
 
-    public int CurrentHP => current;
-    public int MaxHP => maxHP;
-
-    void Awake() => current = maxHP; // Start mit der Menge an Herzen am Anfang des Spieles
-
-    public void TakeDamage(int amount)
+    void Awake()
     {
-        Debug.Log($"{gameObject.name} took {amount} damage!");
-        current -= amount;
+        if (health == null)
+            health = GetComponentInParent<Health>();
+        if (canvasGroup == null)
+            canvasGroup = GetComponent<CanvasGroup>();
 
-        if (current <= 0)
-        {
-            // Punkte vergeben, wenn es ein Gegner ist
-            if (CompareTag("Enemy"))
-            {
-                ScoreManager.Instance?.AddPoints(100);
-            }
-
-            onDeath?.Invoke();
-            gameObject.SetActive(false);
-        }
+        // Wenn das Health-Script das UnityEvent „onDeath“ hat → abonnieren
+        if (health != null)
+            health.onDeath.AddListener(OnDeath);
     }
 
+    void Update()
+    {
+        if (health == null || fillImage == null) return;
+
+        float ratio = (float)health.CurrentHP / health.MaxHP;
+        fillImage.fillAmount = ratio;
+
+        // Immer zur Kamera drehen (optional)
+        transform.rotation = Quaternion.identity;
+    }
+
+    void OnDeath()
+    {
+        // Sobald Gegner stirbt, Bar ausblenden
+        StartCoroutine(FadeOut());
+    }
+
+    System.Collections.IEnumerator FadeOut()
+    {
+        float duration = 0.5f;
+        float startAlpha = canvasGroup.alpha;
+        float t = 0f;
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, 0f, t / duration);
+            yield return null;
+        }
+
+        gameObject.SetActive(false);
+    }
 }
