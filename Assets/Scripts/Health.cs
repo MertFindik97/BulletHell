@@ -32,20 +32,23 @@ public class HealthBar : MonoBehaviour
 
     void OnDeath()
     {
-        Debug.Log($"{gameObject.name} took {amount} damage!");
-        current -= amount;
-
-        if (current <= 0)
-        {
-            // Punkte vergeben, wenn es ein Gegner ist
-            if (CompareTag("Enemy"))
-            {
-                ScoreManager.Instance?.AddPoints(100);
-            }
-
-            onDeath?.Invoke();
-            gameObject.SetActive(false);
-        }
+        // Sobald Gegner stirbt, Bar ausblenden
+        StartCoroutine(FadeOut());
     }
 
+    System.Collections.IEnumerator FadeOut()
+    {
+        float duration = 0.5f;
+        float startAlpha = canvasGroup.alpha;
+        float t = 0f;
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, 0f, t / duration);
+            yield return null;
+        }
+
+        gameObject.SetActive(false);
+    }
 }
