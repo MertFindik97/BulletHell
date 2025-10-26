@@ -9,10 +9,15 @@ public class HealthBar : MonoBehaviour
 
     void Awake()
     {
+<<<<<<< HEAD
         if (health == null)
             health = GetComponentInParent<Health>();
         if (canvasGroup == null)
             canvasGroup = GetComponent<CanvasGroup>();
+=======
+        Debug.Log($"{gameObject.name} took {amount} damage!");
+        current -= amount;
+>>>>>>> parent of dfd4f33 (Test)
 
         // Wenn das Health-Script das UnityEvent „onDeath“ hat → abonnieren
         if (health != null)
