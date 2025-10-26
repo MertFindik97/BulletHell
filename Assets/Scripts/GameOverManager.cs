@@ -20,9 +20,16 @@ public class GameOverManager : MonoBehaviour
         isGameOver = true;
 
         if (gameOverCanvas != null)
+        {
+
             gameOverCanvas.SetActive(true);
 
+            ScoreManager.Instance?.SaveHighscore();
+            ScoreManager.Instance?.UpdateUI();
+        }
+        
         Time.timeScale = 0f; // Spiel anhalten
+
     }
 
     public void RestartGame()
