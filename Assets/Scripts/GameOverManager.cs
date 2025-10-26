@@ -28,12 +28,12 @@ public class GameOverManager : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Main"); // <<< nur Main neu laden!
+        SceneManager.LoadScene("Main"); //  nur Main neu laden!
     }
 
     public void QuitToMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu"); // <<< nur hier MainMenu laden
+        SceneManager.LoadScene("MainMenu"); //  nur hier MainMenu laden
     }
 }
