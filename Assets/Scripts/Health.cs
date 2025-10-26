@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] int maxHP = 3; // Lebensanzeige (Wie viel Herzen hat man)
+    [SerializeField] int maxHP = 3; // Lebensanzeige (Wie viel Herzen hat man(3))
     public UnityEvent onDeath; // wenn man kein Herz mehr hat
     int current; // was er grad vorhanden hat an Herzen
 
