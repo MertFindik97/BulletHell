@@ -10,11 +10,14 @@ public class HealthBar : MonoBehaviour
     void Awake()
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         if (health == null)
             health = GetComponentInParent<Health>();
         if (canvasGroup == null)
             canvasGroup = GetComponent<CanvasGroup>();
 =======
+=======
+>>>>>>> parent of dfd4f33 (Test)
         Debug.Log($"{gameObject.name} took {amount} damage!");
         current -= amount;
 >>>>>>> parent of dfd4f33 (Test)
