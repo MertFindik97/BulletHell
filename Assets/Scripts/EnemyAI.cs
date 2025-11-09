@@ -41,4 +41,23 @@ public class EnemyAI : MonoBehaviour
             damageTimer = damageCooldown;
         }
     }
+    void Die()
+{
+    if (PlayerStats.Instance != null)
+    {
+        PlayerStats.Instance.AddXP(20);
+        Debug.Log("💥 Gegner tot – XP vergeben!");
+    }
+    else
+    {
+        Debug.LogWarning("⚠ Kein PlayerStats gefunden!");
+    }
+
+    ScoreManager.Instance.AddPoints(100);
+    Destroy(gameObject);
 }
+
+
+
+}
+    
