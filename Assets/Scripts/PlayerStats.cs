@@ -4,13 +4,15 @@ public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats Instance { get; private set; }
 
+    [Header("Level-System")]
     public int level = 1;
     public int currentXP = 0;
     public int xpToNextLevel = 100;
 
-    public int maxHealth = 100;
-    public float moveSpeed = 10f;
-    public float fireRate = 5f;
+    [Header("Spielerwerte")]
+    public int maxHealth = 3;
+    public float moveSpeed = 1f;
+    public float shotsPerSecond = 1f; // intuitiver als fireRate in Sekunden
 
     void Awake()
     {
@@ -18,6 +20,9 @@ public class PlayerStats : MonoBehaviour
         Debug.Log("✅ PlayerStats initialisiert.");
     }
 
+    // -----------------------------
+    // XP-System
+    // -----------------------------
     public void AddXP(int amount)
     {
         currentXP += amount;
@@ -31,18 +36,37 @@ public class PlayerStats : MonoBehaviour
 
     void LevelUp()
     {
-         level++;
-    currentXP -= xpToNextLevel;
-    xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.5f);
-    Debug.Log($"🆙 Level {level} erreicht!");
+        level++;
+        currentXP -= xpToNextLevel;
+        xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.5f);
 
-    if (UpgradeManager.Instance != null)
-        UpgradeManager.Instance.OpenUpgradeMenu();
-    else
-        Debug.LogError("❌ UpgradeManager.Instance ist null!");
+        Debug.Log($"🆙 Level {level} erreicht!");
+
+        if (UpgradeManager.Instance != null)
+            UpgradeManager.Instance.OpenUpgradeMenu();
+        else
+            Debug.LogError("❌ UpgradeManager.Instance ist null!");
     }
 
-    public void UpgradeHealth()  { maxHealth += 1; Debug.Log("💗 Leben erhöht!"); }
-    public void UpgradeSpeed()   { moveSpeed += 1f; Debug.Log("⚡ Geschwindigkeit erhöht!"); }
-    public void UpgradeFireRate(){ fireRate *= 0.9f; Debug.Log("🔫 Schussrate erhöht!"); }
+    // -----------------------------
+    // Upgrades
+    // -----------------------------
+
+    public void UpgradeHealth()
+    {
+        maxHealth += 1;
+        Debug.Log($"💗 Leben erhöht! Neues Max-Leben: {maxHealth}");
+    }
+
+    public void UpgradeSpeed()
+    {
+        moveSpeed += 1f;
+        Debug.Log($"⚡ Geschwindigkeit erhöht! Neue Geschwindigkeit: {moveSpeed:F1}");
+    }
+
+    public void UpgradeFireRate()
+    {
+        shotsPerSecond += 1f;
+        Debug.Log($"🔫 Schussrate erhöht! Neue Schüsse/Sekunde: {shotsPerSecond:F1}");
+    }
 }

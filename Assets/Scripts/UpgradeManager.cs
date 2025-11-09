@@ -100,15 +100,15 @@ public class UpgradeManager : MonoBehaviour
 
     private void LogCurrentStats()
     {
-        var stats = PlayerStats.Instance;
-        if (stats == null) return;
+       var stats = PlayerStats.Instance;
+    if (stats == null) return;
 
-        string text =
-            $"📊 AKTUELLE WERTE:\n" +
-            $"💗 Leben: {stats.maxHealth}\n" +
-            $"⚡ Geschwindigkeit: {stats.moveSpeed:F1}\n" +
-            $"🔫 Schussrate: {stats.fireRate:F2} Sek. zwischen Schüssen";
+    string text =
+        $"📊 AKTUELLE WERTE ({System.DateTime.Now:HH:mm:ss}):\n" +
+        $"💗 Leben: {stats.maxHealth}\n" +
+        $"⚡ Geschwindigkeit: {stats.moveSpeed:F1}\n" +
+        $"🔫 Schussrate: {stats.shotsPerSecond:F1} Schüsse/Sekunde";
 
-        Debug.Log(text);
+    Debug.Log(text);
     }
 }

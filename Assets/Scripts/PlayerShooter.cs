@@ -2,30 +2,33 @@ using UnityEngine;
 
 public class PlayerShooter : MonoBehaviour
 {
-    [SerializeField] Bullet bulletPrefab;// das sind die Projektiele
-    [SerializeField] Transform firePoint;// das sind die Schüsse 
-    [SerializeField] float shotsPerSecond = 6f;// schüsse pro sekunde
+    [Header("Schuss-Einstellungen")]
+    [SerializeField] Bullet bulletPrefab;
+    [SerializeField] Transform firePoint;
+    [SerializeField] float defaultShotsPerSecond = 0.5f;
 
-    float cooldown;// das es nicht wie eine alles durschgehent schießt sondern mit pausen
+    float cooldown;
 
     void Update()
     {
         cooldown -= Time.deltaTime;
+
         if (Input.GetMouseButton(0)) // Linke Maustaste gedrückt
             TryFire();
     }
 
     void TryFire()
     {
-     if (cooldown > 0f) return;
+        if (cooldown > 0f) return;
 
-     // Neue Zeile: FireRate dynamisch aus PlayerStats
-     float currentFireRate = PlayerStats.Instance != null ? PlayerStats.Instance.fireRate : 1f;
+        // 🔹 FireRate dynamisch aus PlayerStats holen
+        float shotsPerSecond = PlayerStats.Instance != null 
+            ? PlayerStats.Instance.shotsPerSecond 
+            : defaultShotsPerSecond;
 
-        cooldown = currentFireRate; // fireRate aus PlayerStats = Sekunden zwischen Schüssen
+        cooldown = 1f / shotsPerSecond; // Sekunden zwischen Schüssen
 
-      var bullet = BulletPool.Instance.Get(bulletPrefab);
+        var bullet = BulletPool.Instance.Get(bulletPrefab);
         bullet.Launch(firePoint.up, firePoint.position);
     }
-
 }
