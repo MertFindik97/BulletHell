@@ -17,14 +17,15 @@ public class PlayerShooter : MonoBehaviour
 
     void TryFire()
     {
-        if (cooldown > 0f) return;
-        cooldown = 1f / shotsPerSecond;
+     if (cooldown > 0f) return;
 
-        var bullet = BulletPool.Instance.Get(bulletPrefab);
-        //var bullet = Instantiate(bulletPrefab); Bullet funktinieren aber werden nicht von BulletPool gesteuert
-        // das macht es etwas Langsame und unevizienter
+     // Neue Zeile: FireRate dynamisch aus PlayerStats
+     float currentFireRate = PlayerStats.Instance != null ? PlayerStats.Instance.fireRate : 1f;
 
-        bullet.Launch(firePoint.up, firePoint.position); // Wichtig: firePoint.up = Schussrichtung 
-        // 
+        cooldown = currentFireRate; // fireRate aus PlayerStats = Sekunden zwischen Schüssen
+
+      var bullet = BulletPool.Instance.Get(bulletPrefab);
+        bullet.Launch(firePoint.up, firePoint.position);
     }
+
 }

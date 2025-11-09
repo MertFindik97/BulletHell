@@ -9,8 +9,8 @@ public class PlayerStats : MonoBehaviour
     public int xpToNextLevel = 100;
 
     public int maxHealth = 100;
-    public float moveSpeed = 5f;
-    public float fireRate = 0.5f;
+    public float moveSpeed = 10f;
+    public float fireRate = 5f;
 
     void Awake()
     {
@@ -31,17 +31,18 @@ public class PlayerStats : MonoBehaviour
 
     void LevelUp()
     {
-        level++;
-        currentXP -= xpToNextLevel;
-        xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.5f);
-        Debug.Log($"🆙 Level {level} erreicht!");
-        if (UpgradeManager.Instance != null)
+         level++;
+    currentXP -= xpToNextLevel;
+    xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.5f);
+    Debug.Log($"🆙 Level {level} erreicht!");
+
+    if (UpgradeManager.Instance != null)
         UpgradeManager.Instance.OpenUpgradeMenu();
     else
-        Debug.LogError("❌ Kein UpgradeManager gefunden!");
+        Debug.LogError("❌ UpgradeManager.Instance ist null!");
     }
 
-    public void UpgradeHealth()  { maxHealth += 20; Debug.Log("💗 Leben erhöht!"); }
+    public void UpgradeHealth()  { maxHealth += 1; Debug.Log("💗 Leben erhöht!"); }
     public void UpgradeSpeed()   { moveSpeed += 1f; Debug.Log("⚡ Geschwindigkeit erhöht!"); }
     public void UpgradeFireRate(){ fireRate *= 0.9f; Debug.Log("🔫 Schussrate erhöht!"); }
 }
