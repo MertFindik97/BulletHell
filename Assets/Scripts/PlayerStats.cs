@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public static PlayerStats Instance;
+    public static PlayerStats Instance { get; private set; }
 
     public int level = 1;
     public int currentXP = 0;
@@ -14,15 +14,8 @@ public class PlayerStats : MonoBehaviour
 
     void Awake()
     {
-        // Singleton absichern
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else if (Instance != this)
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
+        Debug.Log("✅ PlayerStats initialisiert.");
     }
 
     public void AddXP(int amount)
@@ -42,26 +35,9 @@ public class PlayerStats : MonoBehaviour
         currentXP -= xpToNextLevel;
         xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.5f);
         Debug.Log($"🆙 Level {level} erreicht!");
-        // Upgrade-Menu nur öffnen, wenn es existiert
-        if (UpgradeManager.Instance != null)
-            UpgradeManager.Instance.OpenUpgradeMenu();
     }
 
-    public void UpgradeHealth()
-    {
-        maxHealth += 20;
-        Debug.Log("💗 Leben erhöht!");
-    }
-
-    public void UpgradeSpeed()
-    {
-        moveSpeed += 1f;
-        Debug.Log("⚡ Geschwindigkeit erhöht!");
-    }
-
-    public void UpgradeFireRate()
-    {
-        fireRate *= 0.9f;
-        Debug.Log("🔫 Schussrate erhöht!");
-    }
+    public void UpgradeHealth()  { maxHealth += 20; Debug.Log("💗 Leben erhöht!"); }
+    public void UpgradeSpeed()   { moveSpeed += 1f; Debug.Log("⚡ Geschwindigkeit erhöht!"); }
+    public void UpgradeFireRate(){ fireRate *= 0.9f; Debug.Log("🔫 Schussrate erhöht!"); }
 }

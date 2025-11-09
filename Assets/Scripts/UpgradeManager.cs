@@ -8,23 +8,21 @@ public class UpgradeManager : MonoBehaviour
 
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
             Destroy(gameObject);
-            return;
-        }
-        Instance = this;
     }
 
     public void OpenUpgradeMenu()
     {
-        Time.timeScale = 0f; // Spiel pausieren
+        Time.timeScale = 0f;
         upgradeCanvas.SetActive(true);
     }
 
     public void CloseUpgradeMenu()
     {
-        Time.timeScale = 1f; // Weiter spielen
+        Time.timeScale = 1f;
         upgradeCanvas.SetActive(false);
     }
 
