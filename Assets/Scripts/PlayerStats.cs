@@ -35,6 +35,10 @@ public class PlayerStats : MonoBehaviour
         currentXP -= xpToNextLevel;
         xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.5f);
         Debug.Log($"🆙 Level {level} erreicht!");
+        if (UpgradeManager.Instance != null)
+        UpgradeManager.Instance.OpenUpgradeMenu();
+    else
+        Debug.LogError("❌ Kein UpgradeManager gefunden!");
     }
 
     public void UpgradeHealth()  { maxHealth += 20; Debug.Log("💗 Leben erhöht!"); }
