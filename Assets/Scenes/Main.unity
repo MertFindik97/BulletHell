@@ -779,7 +779,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &312567877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -787,7 +787,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 312567876}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a511f3f230312f4a934b07cb83d3dc3, type: 3}
   m_Name: 
@@ -1852,7 +1852,7 @@ MonoBehaviour:
   waves:
   - waveName: 1
     enemyPrefabs:
-    - {fileID: 350265120971293743, guid: cb246c69c2ba9c949b4589f580839d47, type: 3}
+    - {fileID: 5840038882737305133, guid: f4602107911282542bfd45e2bf6bb648, type: 3}
     count: 5
     rate: 1
   - waveName: 2
