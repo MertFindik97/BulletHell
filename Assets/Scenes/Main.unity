@@ -1868,6 +1868,20 @@ MonoBehaviour:
     - {fileID: 350265120971293743, guid: f6e9ee46374d9e14a83e0bded2f1e22f, type: 3}
     count: 15
     rate: 2
+  - waveName: 4
+    enemyPrefabs:
+    - {fileID: 350265120971293743, guid: cb246c69c2ba9c949b4589f580839d47, type: 3}
+    - {fileID: 350265120971293743, guid: ca5ec84a3061a114ebfed190e8e19319, type: 3}
+    - {fileID: 350265120971293743, guid: f6e9ee46374d9e14a83e0bded2f1e22f, type: 3}
+    count: 15
+    rate: 2
+  - waveName: 5
+    enemyPrefabs:
+    - {fileID: 350265120971293743, guid: cb246c69c2ba9c949b4589f580839d47, type: 3}
+    - {fileID: 350265120971293743, guid: ca5ec84a3061a114ebfed190e8e19319, type: 3}
+    - {fileID: 350265120971293743, guid: f6e9ee46374d9e14a83e0bded2f1e22f, type: 3}
+    count: 15
+    rate: 2
   spawnPoints:
   - {fileID: 1128365380}
   - {fileID: 1257372319}
