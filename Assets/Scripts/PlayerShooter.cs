@@ -7,7 +7,13 @@ public class PlayerShooter : MonoBehaviour
     [SerializeField] Transform firePoint;
     [SerializeField] float defaultShotsPerSecond = 0.5f;
 
+    Animator anim;
     float cooldown;
+
+    void Awake()
+    {
+        anim = GetComponentInChildren<Animator>();
+    }
 
     void Update()
     {
@@ -21,13 +27,18 @@ public class PlayerShooter : MonoBehaviour
     {
         if (cooldown > 0f) return;
 
-        // 🔹 FireRate dynamisch aus PlayerStats holen
-        float shotsPerSecond = PlayerStats.Instance != null 
-            ? PlayerStats.Instance.shotsPerSecond 
+        // FireRate aus PlayerStats oder Fallback
+        float shotsPerSecond = PlayerStats.Instance != null
+            ? PlayerStats.Instance.shotsPerSecond
             : defaultShotsPerSecond;
 
-        cooldown = 1f / shotsPerSecond; // Sekunden zwischen Schüssen
+        cooldown = 1f / shotsPerSecond;
 
+        // 🔥 Attack-Animation auslösen
+        if (anim != null)
+            anim.SetTrigger("ShootTrigger");
+
+        // 🔥 Projektil abfeuern
         var bullet = BulletPool.Instance.Get(bulletPrefab);
         bullet.Launch(firePoint.up, firePoint.position);
     }
