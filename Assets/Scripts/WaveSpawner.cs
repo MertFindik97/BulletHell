@@ -18,6 +18,10 @@ public class WaveSpawner : MonoBehaviour
     public Transform[] spawnPoints;
     public float timeBetweenWaves = 5f;
 
+    [Header("Player Reference")]
+    public Transform player;            // Player-Objekt
+    public float minSpawnDistance = 3f; // Mindestabstand beim Spawnen
+
     [Header("UI References")]
     public TextMeshProUGUI waveAnnouncementText;
     public TextMeshProUGUI waveCounterText;
@@ -46,9 +50,7 @@ public class WaveSpawner : MonoBehaviour
 
             // Warte bis alle Gegner tot sind
             while (enemiesAlive > 0)
-            {
                 yield return null;
-            }
 
             // Pause zwischen Waves
             yield return new WaitForSeconds(timeBetweenWaves);
@@ -68,12 +70,12 @@ public class WaveSpawner : MonoBehaviour
         for (int i = 0; i < wave.count; i++)
         {
             GameObject enemyPrefab = wave.enemyPrefabs[Random.Range(0, wave.enemyPrefabs.Length)];
-            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+            Transform spawnPoint = GetValidSpawnPoint();
 
             GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
             enemiesAlive++;
 
-            // Gegner bekommt Info, wer der Spawner ist (damit er sich abmeldet, wenn er stirbt)
+            // Gegner wird registriert, damit der Spawner weiß, wann er tot ist
             EnemyDeathNotifier notifier = enemy.AddComponent<EnemyDeathNotifier>();
             notifier.spawner = this;
 
@@ -81,6 +83,23 @@ public class WaveSpawner : MonoBehaviour
         }
 
         isSpawning = false;
+    }
+
+    Transform GetValidSpawnPoint()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            Transform point = spawnPoints[Random.Range(0, spawnPoints.Length)];
+
+            if (player == null) return point;
+
+            float distance = Vector2.Distance(point.position, player.position);
+            if (distance >= minSpawnDistance)
+                return point;
+        }
+
+        // Falls kein passender Punkt gefunden wurde (sollte selten vorkommen)
+        return spawnPoints[Random.Range(0, spawnPoints.Length)];
     }
 
     public void OnEnemyDeath()

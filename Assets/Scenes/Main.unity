@@ -215,7 +215,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.046, y: 0.16, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 123422066}
@@ -343,7 +343,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.008090377, y: 1.0772269}
+  m_Offset: {x: 0.030957729, y: 1.8612049}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -353,7 +353,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.6455407, y: 1.8077143}
+  m_Size: {x: 1.2555544, y: 3.375671}
   m_EdgeRadius: 0
 --- !u!1 &77660700
 GameObject:
@@ -1104,7 +1104,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
@@ -1176,7 +1176,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1221,7 +1221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   target: {fileID: 75974175}
   smoothSpeed: 0.1
-  offset: {x: 0, y: 1, z: -50}
+  offset: {x: 0, y: 1, z: -700}
 --- !u!1 &608354225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1432,11 +1432,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6679783802021260201, guid: 0f9692da27a35e64fb6c73920e21165e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6679783802021260201, guid: 0f9692da27a35e64fb6c73920e21165e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6679783802021260201, guid: 0f9692da27a35e64fb6c73920e21165e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1928,35 +1928,35 @@ MonoBehaviour:
   waves:
   - waveName: 1
     enemyPrefabs:
-    - {fileID: 6330641848284491987, guid: 71c313260b4d8b24cac019300138bc80, type: 3}
-    count: 3
-    rate: 1
+    - {fileID: 812692369501316941, guid: 47d48f7329052fd409bf5ff4abb5b6e6, type: 3}
+    count: 1
+    rate: 0.5
   - waveName: 2
     enemyPrefabs:
-    - {fileID: 6330641848284491987, guid: 71c313260b4d8b24cac019300138bc80, type: 3}
-    - {fileID: 3301634273187925358, guid: 5029932c4fd65e347875a3147757b6ed, type: 3}
+    - {fileID: 2010353924245961650, guid: 71c313260b4d8b24cac019300138bc80, type: 3}
+    - {fileID: 8446141048784687695, guid: 5fadbdc0ffa371344ab1c704ca626b2a, type: 3}
     count: 10
     rate: 1.5
   - waveName: 3
     enemyPrefabs:
-    - {fileID: 6330641848284491987, guid: 71c313260b4d8b24cac019300138bc80, type: 3}
-    - {fileID: 3301634273187925358, guid: 5029932c4fd65e347875a3147757b6ed, type: 3}
-    - {fileID: 7795965822496209314, guid: 5fadbdc0ffa371344ab1c704ca626b2a, type: 3}
+    - {fileID: 754214545886465984, guid: 1df50c34b345cfa43a6878c7f5405574, type: 3}
+    - {fileID: 7594085476649330516, guid: 5029932c4fd65e347875a3147757b6ed, type: 3}
+    - {fileID: 8446141048784687695, guid: 5fadbdc0ffa371344ab1c704ca626b2a, type: 3}
     count: 15
     rate: 2
   - waveName: 4
     enemyPrefabs:
     - {fileID: 6330641848284491987, guid: 71c313260b4d8b24cac019300138bc80, type: 3}
-    - {fileID: 3301634273187925358, guid: 5029932c4fd65e347875a3147757b6ed, type: 3}
-    - {fileID: 7795965822496209314, guid: 5fadbdc0ffa371344ab1c704ca626b2a, type: 3}
+    - {fileID: 7594085476649330516, guid: 5029932c4fd65e347875a3147757b6ed, type: 3}
+    - {fileID: 8446141048784687695, guid: 5fadbdc0ffa371344ab1c704ca626b2a, type: 3}
     count: 15
     rate: 2
   - waveName: 5
     enemyPrefabs:
     - {fileID: 6330641848284491987, guid: 71c313260b4d8b24cac019300138bc80, type: 3}
-    - {fileID: 3301634273187925358, guid: 5029932c4fd65e347875a3147757b6ed, type: 3}
-    - {fileID: 7795965822496209314, guid: 5fadbdc0ffa371344ab1c704ca626b2a, type: 3}
-    - {fileID: 3486644202231078298, guid: 906621192376ec542bb5bedb6378fb48, type: 3}
+    - {fileID: 7594085476649330516, guid: 5029932c4fd65e347875a3147757b6ed, type: 3}
+    - {fileID: 8446141048784687695, guid: 5fadbdc0ffa371344ab1c704ca626b2a, type: 3}
+    - {fileID: 754214545886465984, guid: 1df50c34b345cfa43a6878c7f5405574, type: 3}
     count: 15
     rate: 2
   spawnPoints:
@@ -1964,7 +1964,9 @@ MonoBehaviour:
   - {fileID: 1257372319}
   - {fileID: 1131526444}
   - {fileID: 979171029}
-  timeBetweenWaves: 5
+  timeBetweenWaves: 3
+  player: {fileID: 75974175}
+  minSpawnDistance: 10
   waveAnnouncementText: {fileID: 727869434}
   waveCounterText: {fileID: 1483644111}
 --- !u!4 &755275702
@@ -2355,7 +2357,7 @@ Transform:
   m_GameObject: {fileID: 979171028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: 0, z: 0}
+  m_LocalPosition: {x: 15, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2894,7 +2896,7 @@ Transform:
   m_GameObject: {fileID: 1128365379}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2925,7 +2927,7 @@ Transform:
   m_GameObject: {fileID: 1131526443}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6, y: 0, z: 0}
+  m_LocalPosition: {x: -15, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3150,7 +3152,7 @@ Transform:
   m_GameObject: {fileID: 1257372318}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4, z: 0}
+  m_LocalPosition: {x: 0, y: -15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

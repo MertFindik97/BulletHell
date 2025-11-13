@@ -9,11 +9,14 @@ public class EnemyAI : MonoBehaviour
 
     Rigidbody2D rb;
     Transform target;
+    Animator anim;
+
     float damageTimer;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();     // 🔥 Animator holen
         target = GameObject.FindWithTag("Player")?.transform;
     }
 
@@ -21,8 +24,21 @@ public class EnemyAI : MonoBehaviour
     {
         if (target == null) return;
 
-        Vector2 direction = (target.position - transform.position).normalized;
-        rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+    Vector2 direction = (target.position - transform.position).normalized;
+    Vector2 newPos = rb.position + direction * moveSpeed * Time.fixedDeltaTime;
+
+    Vector2 velocity = (newPos - rb.position) / Time.fixedDeltaTime;
+
+    rb.MovePosition(newPos);
+
+    anim.SetFloat("Speed", velocity.magnitude);
+
+    // Gegner richtig drehen – REVERSE FLIP
+    if (direction.x > 0.01f)
+    transform.localScale = new Vector3(-1, 1, 1);  // Kopf nach rechts
+    else if (direction.x < -0.01f)
+    transform.localScale = new Vector3(1, 1, 1);   // Kopf nach links
+
     }
 
     void Update()
@@ -41,22 +57,20 @@ public class EnemyAI : MonoBehaviour
             damageTimer = damageCooldown;
         }
     }
+
     public void Die()
     {
-     if (PlayerStats.Instance != null)
+        if (PlayerStats.Instance != null)
         {
             PlayerStats.Instance.AddXP(20);
-           Debug.Log("💥 Gegner tot – XP vergeben!");
-     }
+            Debug.Log("💥 Gegner tot – XP vergeben!");
+        }
         else
-     {
-        Debug.LogWarning("⚠ Kein aktiver PlayerStats – Gegner stirbt ohne XP-Vergabe.");
-     }
+        {
+            Debug.LogWarning("⚠ Kein aktiver PlayerStats – Gegner stirbt ohne XP-Vergabe.");
+        }
 
-     ScoreManager.Instance?.AddPoints(100);
-     Destroy(gameObject);
+        ScoreManager.Instance?.AddPoints(100);
+        Destroy(gameObject);
     }
-
-
 }
-    
