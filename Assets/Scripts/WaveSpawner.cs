@@ -40,7 +40,7 @@ public class WaveSpawner : MonoBehaviour
 
     [Header("Spawn Settings")]
     public float minSpawnDistance = 5f;     // Abstand zum Spieler
-    public float maxSpawnDistance = 9f;     // Kreisradius
+    public float maxSpawnDistance = 9f;     // Kreisradius 0
 
     [Header("UI")]
     public TextMeshProUGUI waveAnnouncementText;
