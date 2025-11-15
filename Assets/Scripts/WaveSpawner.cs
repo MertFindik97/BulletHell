@@ -22,23 +22,25 @@ public class WaveSpawner : MonoBehaviour
 {
     [Header("Wave Settings")]
     public Wave[] waves;
-    public Transform[] spawnPoints;
     public float timeBetweenWaves = 4f;
 
     [Header("Boss Settings")]
-    public GameObject[] bossPrefabs;        // mehrere Bosse möglich
+    public GameObject[] bossPrefabs;
     public int bossWaveInterval = 5;
 
-    public float bossHpMultiplier = 1.2f;    // +20% HP pro Boss-Wave
-    public float bossDamageMultiplier = 1.1f; // +10% Damage pro Boss-Wave
-    public float bossSpeedMultiplier = 1.1f;  // +10% Speed pro Boss-Wave
+    public float bossHpMultiplier = 1.2f;
+    public float bossDamageMultiplier = 1.1f;
+    public float bossSpeedMultiplier = 1.1f;
 
     [Header("Endless Mode")]
     public bool endlessMode = true;
 
-    [Header("Player Reference")]
+    [Header("Player")]
     public Transform player;
-    public float minSpawnDistance = 3f;
+
+    [Header("Spawn Settings")]
+    public float minSpawnDistance = 5f;     // Abstand zum Spieler
+    public float maxSpawnDistance = 9f;     // Kreisradius
 
     [Header("UI")]
     public TextMeshProUGUI waveAnnouncementText;
@@ -52,20 +54,21 @@ public class WaveSpawner : MonoBehaviour
         StartCoroutine(HandleWaves());
     }
 
+    // -------------------------------------------------------------
+    // WAVE HANDLING
+    // -------------------------------------------------------------
     IEnumerator HandleWaves()
     {
         yield return new WaitForSeconds(2f);
 
         while (true)
         {
-            // Prüfen ob Boss-Wave
             bool isBossWave = (currentWaveIndex + 1) % bossWaveInterval == 0;
 
-            // BOSSWAVE
             if (isBossWave)
             {
                 UpdateWaveUI("BOSS WAVE!");
-                yield return StartCoroutine(ShowBossAnnouncement());
+                yield return ShowBossAnnouncement();
 
                 SpawnBossWave();
 
@@ -77,7 +80,6 @@ public class WaveSpawner : MonoBehaviour
                 continue;
             }
 
-            // NORMALE WAVE
             Wave wave;
 
             bool isEndless = currentWaveIndex >= waves.Length;
@@ -92,22 +94,21 @@ public class WaveSpawner : MonoBehaviour
             }
 
             UpdateWaveUI("Wave " + (currentWaveIndex + 1));
-            yield return StartCoroutine(ShowWaveAnnouncement());
+            yield return ShowWaveAnnouncement();
 
-            yield return StartCoroutine(SpawnWave(wave));
+            yield return SpawnWave(wave);
 
             while (enemiesAlive > 0)
                 yield return null;
 
             yield return new WaitForSeconds(timeBetweenWaves);
-
             currentWaveIndex++;
         }
     }
 
-    // -------------------------------------------------------------------
+    // -------------------------------------------------------------
     // BOSS WAVES
-    // -------------------------------------------------------------------
+    // -------------------------------------------------------------
 
     void SpawnBossWave()
     {
@@ -115,14 +116,11 @@ public class WaveSpawner : MonoBehaviour
 
         foreach (var bossPrefab in bossPrefabs)
         {
-            Transform point = spawnPoints[Random.Range(0, spawnPoints.Length)];
+            Vector3 pos = GetRandomSpawnPosition();
+            GameObject boss = Instantiate(bossPrefab, pos, Quaternion.identity);
 
-            GameObject boss = Instantiate(bossPrefab, point.position, Quaternion.identity);
-
-            // Boss skalieren
             ScaleBossStats(boss, bossWaveNumber);
 
-            // Tod registrieren
             var notifier = boss.AddComponent<EnemyDeathNotifier>();
             notifier.spawner = this;
 
@@ -132,14 +130,12 @@ public class WaveSpawner : MonoBehaviour
 
     void ScaleBossStats(GameObject boss, int bossWaveNumber)
     {
-        // HP skalieren
         if (boss.TryGetComponent<Health>(out var hp))
         {
             int scaledHP = Mathf.RoundToInt(hp.MaxHP * Mathf.Pow(bossHpMultiplier, bossWaveNumber));
             hp.SetMaxHP(scaledHP);
         }
 
-        // Speed + Damage skalieren
         if (boss.TryGetComponent<EnemyAI>(out var ai))
         {
             ai.moveSpeed *= Mathf.Pow(bossSpeedMultiplier, bossWaveNumber);
@@ -151,17 +147,18 @@ public class WaveSpawner : MonoBehaviour
     {
         waveAnnouncementText.text = "⚠️ BOSS WAVE!";
         waveAnnouncementText.gameObject.SetActive(true);
+
         yield return new WaitForSeconds(2f);
+
         waveAnnouncementText.gameObject.SetActive(false);
     }
 
-    // -------------------------------------------------------------------
-    // NORMALE WAVES
-    // -------------------------------------------------------------------
+    // -------------------------------------------------------------
+    // NORMAL WAVES
+    // -------------------------------------------------------------
 
     IEnumerator SpawnWave(Wave wave)
     {
-        // Liste aller Gegner in der Wave erstellen
         List<GameObject> list = new List<GameObject>();
 
         foreach (WaveEnemy we in wave.enemies)
@@ -170,31 +167,30 @@ public class WaveSpawner : MonoBehaviour
                 list.Add(we.prefab);
         }
 
-        // Mischen
+        // Shuffle
         for (int i = 0; i < list.Count; i++)
         {
             int rand = Random.Range(i, list.Count);
             (list[i], list[rand]) = (list[rand], list[i]);
         }
 
-        // Gegner spawnen
         foreach (var prefab in list)
         {
-            Transform point = GetValidSpawnPoint();
-
-            GameObject enemy = Instantiate(prefab, point.position, Quaternion.identity);
+            Vector3 pos = GetRandomSpawnPosition();
+            GameObject enemy = Instantiate(prefab, pos, Quaternion.identity);
 
             EnemyDeathNotifier notifier = enemy.AddComponent<EnemyDeathNotifier>();
             notifier.spawner = this;
 
             enemiesAlive++;
+
             yield return new WaitForSeconds(1f / wave.rate);
         }
     }
 
-    // -------------------------------------------------------------------
-    // ENDLOSE WAVES
-    // -------------------------------------------------------------------
+    // -------------------------------------------------------------
+    // ENDLESS MODE
+    // -------------------------------------------------------------
 
     Wave GenerateEndlessWave(int index)
     {
@@ -218,24 +214,26 @@ public class WaveSpawner : MonoBehaviour
         return w;
     }
 
-    // -------------------------------------------------------------------
-    // HELPER
-    // -------------------------------------------------------------------
+    // -------------------------------------------------------------
+    // SPAWN POSITION CALCULATION
+    // -------------------------------------------------------------
 
-    Transform GetValidSpawnPoint()
+    Vector3 GetRandomSpawnPosition()
     {
-        for (int i = 0; i < 10; i++)
-        {
-            Transform p = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        if (player == null)
+            return Vector3.zero;
 
-            if (player == null) return p;
+        float distance = Random.Range(minSpawnDistance, maxSpawnDistance);
+        float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
 
-            if (Vector2.Distance(p.position, player.position) >= minSpawnDistance)
-                return p;
-        }
+        Vector2 offset = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * distance;
 
-        return spawnPoints[Random.Range(0, spawnPoints.Length)];
+        return player.position + (Vector3)offset;
     }
+
+    // -------------------------------------------------------------
+    // EVENTS
+    // -------------------------------------------------------------
 
     public void OnEnemyDeath()
     {
