@@ -3,9 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 2f;
-    [SerializeField] int contactDamage = 1;
-    [SerializeField] float damageCooldown = 1f;
+    [SerializeField] public float moveSpeed = 2f;
+    [SerializeField] public int contactDamage = 1;
+    [SerializeField] public float damageCooldown = 1f;
 
     Rigidbody2D rb;
     Transform target;
