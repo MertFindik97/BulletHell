@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99af8002f80be8449838744deb673a4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHP: 2
+  maxHP: 40
   onDeath:
     m_PersistentCalls:
       m_Calls:
