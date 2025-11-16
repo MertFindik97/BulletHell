@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ChatGPT Image 16. Nov. 2025, 17_17_10_0
+  m_Name: "BackgreoundS\xFCrite"
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
   m_Sprite: {fileID: -3350978421606125932, guid: 68d0a1244b2eb644f80418e4a4253137, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
