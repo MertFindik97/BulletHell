@@ -7,19 +7,24 @@ public class PlayerShooter : MonoBehaviour
     [SerializeField] Transform firePoint;
     [SerializeField] float defaultShotsPerSecond = 0.5f;
 
+    [Header("Audio")]
+    [SerializeField] AudioClip shootClip; // 🔊 dein Feuerball-Sound
+
     Animator anim;
+    AudioSource audioSource;
     float cooldown;
 
     void Awake()
     {
         anim = GetComponentInChildren<Animator>();
+        audioSource = GetComponent<AudioSource>(); // 🔊 AudioSource holen
     }
 
     void Update()
     {
         cooldown -= Time.deltaTime;
 
-        if (Input.GetMouseButton(0)) // Linke Maustaste gedrückt
+        if (Input.GetMouseButton(0))
             TryFire();
     }
 
@@ -27,19 +32,22 @@ public class PlayerShooter : MonoBehaviour
     {
         if (cooldown > 0f) return;
 
-        // FireRate aus PlayerStats oder Fallback
         float shotsPerSecond = PlayerStats.Instance != null
             ? PlayerStats.Instance.shotsPerSecond
             : defaultShotsPerSecond;
 
         cooldown = 1f / shotsPerSecond;
 
-        // 🔥 Attack-Animation auslösen
+        // Animation
         if (anim != null)
             anim.SetTrigger("ShootTrigger");
 
-        // 🔥 Projektil abfeuern
+        // Projektil
         var bullet = BulletPool.Instance.Get(bulletPrefab);
         bullet.Launch(firePoint.up, firePoint.position);
+
+        // 🔊 Sound abspielen
+        if (shootClip != null && audioSource != null)
+            audioSource.PlayOneShot(shootClip);
     }
 }

@@ -145,7 +145,7 @@ public class WaveSpawner : MonoBehaviour
 
     IEnumerator ShowBossAnnouncement()
     {
-        waveAnnouncementText.text = "⚠️ BOSS WAVE!";
+        waveAnnouncementText.text = "BOSS WAVE!";
         waveAnnouncementText.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(2f);
