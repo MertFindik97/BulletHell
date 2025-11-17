@@ -2683,7 +2683,7 @@ MonoBehaviour:
   waves:
   - waveName: 1
     enemies:
-    - prefab: {fileID: 12274847902800057, guid: 966893c06c719e349b282f7c6fc46fe9, type: 3}
+    - prefab: {fileID: 754214545886465984, guid: 1df50c34b345cfa43a6878c7f5405574, type: 3}
       amount: 15
     rate: 0.5
   - waveName: 2
@@ -6163,7 +6163,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ab7ad1c941319f34fa2d149f7bb42aff, type: 2}
+  - {fileID: 2100000, guid: 9f07f1e62d5ec9b44b92a6e7f34840a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
