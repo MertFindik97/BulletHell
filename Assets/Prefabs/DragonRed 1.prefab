@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99af8002f80be8449838744deb673a4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHP: 30
+  maxHP: 50
   onDeath:
     m_PersistentCalls:
       m_Calls:
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02e8eb015977014dbcf9b33b48a2ed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
-  moveSpeed: 5
+  moveSpeed: 6
   contactDamage: 2
   damageCooldown: 1
 --- !u!212 &8989830847964161336

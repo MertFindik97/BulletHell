@@ -437,7 +437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02e8eb015977014dbcf9b33b48a2ed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
-  moveSpeed: 3
+  moveSpeed: 4
   contactDamage: 2
   damageCooldown: 1
 --- !u!95 &1988892668757240216
